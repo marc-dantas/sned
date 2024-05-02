@@ -31,6 +31,10 @@ class Editor(Tk):
         line, col = index.split('.')
         target['text'] = f"{self.file if self.file else 'new'}:{line}:{col}"
     
+    def _on_tab(self, target: Text) -> str:
+        target.insert(INSERT, (" "*self._settings["editor"]["tab_size"]))
+        return "break"
+    
     def save(self, contents: str) -> None:
         debug.log_info("event trigger: save")
         self.unsaved = False
@@ -91,16 +95,17 @@ class Editor(Tk):
         file.add_separator()
         file.add_command(
             label="Exit",
+            accelerator="Ctrl+Q",
             command=self._on_window_close,
         )
+        self.bind("<Control-q>", lambda _: self._on_window_close())
         menu.add_cascade(menu=file, label="File")
         options = Menu(menu, tearoff=False)
         options.add_command(
             label="Settings",
-            accelerator="Ctrl+Q",
+            accelerator="Ctrl+.",
             command=self.settings
         )
-        self.bind("<Control-q>", lambda _: self.settings())
         options.add_separator()
         options.add_command(
             label="Credits",
@@ -115,6 +120,7 @@ class Editor(Tk):
                             foreground=self._settings["editor"]["foreground"])
         engine.highlight(text, self._settings)
         text.bind("<KeyRelease>", lambda _: self._on_change(text.index(INSERT), status))
+        text.bind("<Tab>", lambda _: self._on_tab(text))
         text.place(relx=0, rely=0, relheight=.95, relwidth=1)
 
         status = Label(self, font=(self._settings["editor"]["font"], 14), text=f"{self.file if self.file else 'new'}")

@@ -61,7 +61,7 @@ def check_settings(settings: dict) -> None:
     syntax_fields = {"COMMENT", "KEYWORD",
                      "BUILTIN", "STRING",
                      "DEFINITION"}
-    editor_fields = {"font", "font_size", "background", "foreground"}
+    editor_fields = {"font", "tab_size", "font_size", "background", "foreground"}
     # using set because of the independent order
     assert set(settings.keys()) == {"editor", "syntax"}, "invalid fields"
     assert set(settings["editor"]) == editor_fields, "invalid fields for editor"

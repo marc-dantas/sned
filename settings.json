@@ -2,6 +2,7 @@
   "editor": {
     "font": "Consolas",
     "font_size": 20,
+    "tab_size": 4,
     "foreground": "#000000",
     "background": "#FFFFFF"
   },
