@@ -2,7 +2,7 @@ from . import engine, debug
 import webbrowser
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText
-from os.path import exists
+from os.path import exists, split
 
 
 class Editor(Tk):
@@ -59,7 +59,7 @@ class Editor(Tk):
         f = engine.open_file(path)
         target.delete("1.0", END)
         target.insert("1.0", f.read())
-        self.file = path
+        self.file = split(path)[1] # tail
         self.title(f"Snake Editor - {self.file if self.file else 'new'}")
 
     def credits(self) -> None:
@@ -110,6 +110,7 @@ class Editor(Tk):
         self.config(menu=menu)
 
         text = ScrolledText(self, font=(self._settings["editor"]["font"], self._settings["editor"]["font_size"]),
+                            wrap=NONE,
                             background=self._settings["editor"]["background"],
                             foreground=self._settings["editor"]["foreground"])
         engine.highlight(text, self._settings)
