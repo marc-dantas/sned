@@ -24,7 +24,11 @@ def parse_argv():
 def main() -> None:
     args = parse_argv()
     settings = engine.load_settings(args.settings)
-    editor = views.Editor(args.resolution, settings, args.settings)
+    res = args.resolution.split('x')
+    if (len(res) <= 1) or any(not x.isdigit() for x in res):
+        debug.log_warning(f"invalid resolution specifier (using default {DEFAULT_RESOLUTION}).")
+        res = DEFAULT_RESOLUTION.split('x')
+    editor = views.Editor(tuple(res), settings, args.settings)
     debug.log_info("event trigger: window (Editor)")
     editor.draw()
 

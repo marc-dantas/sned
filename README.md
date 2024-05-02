@@ -34,7 +34,7 @@ These steps should make you through the process and make you run Snake Editor pr
 - [X] Base project (alpha 0.0.1)
 - [ ] Improved layout
 - [ ] Dark mode
-- [ ] Line numbers
+- [X] Line numbers
 - [ ] Python package
 
 ---

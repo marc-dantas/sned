@@ -7,12 +7,12 @@ from os.path import exists
 
 class Editor(Tk):
 
-    def __init__(self, res: str, settings, sf: str) -> None:
+    def __init__(self, res: tuple, settings, sf: str) -> None:
         super().__init__()
-        self.geometry(res)
+        self.geometry(f"{res[0]}x{res[1]}")
+        self.minsize(res[0], res[1])
         self.file = ""
         self._settings = settings
-        # sf = settings filename
         self.sf = sf
         self.unsaved = False
         self.title(f"Snake Editor - new*")
@@ -25,10 +25,12 @@ class Editor(Tk):
         if x == "yes" or not self.unsaved:
             self.destroy()
 
-    def _on_change(self, _) -> None:
+    def _on_change(self, index: str, target: Label) -> None:
         self.title(f"Snake Editor - {self.file if self.file else 'new'}*")
         self.unsaved = True
-
+        line, col = index.split('.')
+        target['text'] = f"{self.file if self.file else 'new'}:{line}:{col}"
+    
     def save(self, contents: str) -> None:
         debug.log_info("event trigger: save")
         self.unsaved = False
@@ -44,6 +46,7 @@ class Editor(Tk):
         self.title(f"Snake Editor - {self.file if self.file else 'new'}")
 
     def open(self, target: Text) -> None:
+        print(target.index(INSERT))
         debug.log_info("event trigger: open")
         if self.unsaved and engine.ask_unsaved() == "no":
             return
@@ -60,13 +63,13 @@ class Editor(Tk):
         self.title(f"Snake Editor - {self.file if self.file else 'new'}")
 
     def credits(self) -> None:
-        window = Credits(self, "800x300", self._settings)
+        window = Credits(self, (800, 300), self._settings)
         debug.log_info("event trigger: window (Credits)")
         window.draw()
 
     def settings(self) -> None:
         window = Settings(
-            self, "600x600", self._settings if self._settings is not None else {}, self.sf)
+            self, (600, 600), self._settings if self._settings is not None else {}, self.sf)
         debug.log_info("event trigger: window (Settings)")
         window.draw()
 
@@ -94,10 +97,10 @@ class Editor(Tk):
         options = Menu(menu, tearoff=False)
         options.add_command(
             label="Settings",
-            accelerator="Ctrl+'",
+            accelerator="Ctrl+Q",
             command=self.settings
         )
-        self.bind("<Control-'>", lambda _: self.settings())
+        self.bind("<Control-q>", lambda _: self.settings())
         options.add_separator()
         options.add_command(
             label="Credits",
@@ -110,19 +113,23 @@ class Editor(Tk):
                             background=self._settings["editor"]["background"],
                             foreground=self._settings["editor"]["foreground"])
         engine.highlight(text, self._settings)
-        text.bind("<Key>", self._on_change)
-        text.place(relx=0, rely=0, relheight=1, relwidth=1)
+        text.bind("<KeyRelease>", lambda _: self._on_change(text.index(INSERT), status))
+        text.place(relx=0, rely=0, relheight=.95, relwidth=1)
+
+        status = Label(self, font=(self._settings["editor"]["font"], 14), text=f"{self.file if self.file else 'new'}")
+        status.place(relx=0, rely=1, relheight=.05, anchor=SW)
 
         self.mainloop()
 
 
 class Credits(Toplevel):
 
-    def __init__(self, root: Tk, res: str, settings) -> None:
+    def __init__(self, root: Tk, res: tuple, settings) -> None:
         super().__init__(root)
         self._settings = settings
         self.title("Credits")
-        self.geometry(res)
+        self.geometry(f"{res[0]}x{res[1]}")
+        self.minsize(res[0], res[1])
         self.resizable(False, False)
 
     def open_repository(self) -> None:
@@ -164,12 +171,13 @@ class Credits(Toplevel):
 
 class Settings(Toplevel):
 
-    def __init__(self, root: Tk, res: str, settings, file: str) -> None:
+    def __init__(self, root: Tk, res: tuple, settings, file: str) -> None:
         super().__init__(root)
         self._settings = settings
         self.file = file
         self.title("Settings")
-        self.geometry(res)
+        self.geometry(f"{res[0]}x{res[1]}")
+        self.minsize(res[0], res[1])
 
     def apply(self, new_settings: str) -> None:
         self.destroy()
