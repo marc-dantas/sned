@@ -43,7 +43,7 @@ class Editor(Tk):
             if not path:
                 engine.error("No such file or directory")
                 return
-            self.file = path
+            self.file = split(path)[1] # tail
             engine.save_file(path, contents)
         else:
             engine.save_file(self.file, contents)
@@ -106,6 +106,7 @@ class Editor(Tk):
             accelerator="Ctrl+.",
             command=self.settings
         )
+        self.bind("<Control-period>", lambda _: self.settings())
         options.add_separator()
         options.add_command(
             label="Credits",
@@ -114,12 +115,13 @@ class Editor(Tk):
         menu.add_cascade(menu=options, label="Options")
         self.config(menu=menu)
 
-        text = ScrolledText(self, font=(self._settings["editor"]["font"], self._settings["editor"]["font_size"]),
-                            wrap=NONE,
+        text = ScrolledText(self, wrap=NONE, font=(self._settings["editor"]["font"],
+                                                   self._settings["editor"]["font_size"]),
                             background=self._settings["editor"]["background"],
                             foreground=self._settings["editor"]["foreground"])
         engine.highlight(text, self._settings)
         text.bind("<KeyRelease>", lambda _: self._on_change(text.index(INSERT), status))
+        text.bind("<Button 1>", lambda _: self._on_change(text.index(INSERT), status))
         text.bind("<Tab>", lambda _: self._on_tab(text))
         text.place(relx=0, rely=0, relheight=.95, relwidth=1)
 

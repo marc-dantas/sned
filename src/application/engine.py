@@ -86,7 +86,7 @@ def load_settings(file: str) -> Any:
     return settings
 
 
-def highlight(text: Text, settings):
+def highlight(text: Text, settings) -> None:
     d = ColorDelegator()
 
     def field(foreground: str) -> dict:
@@ -100,4 +100,5 @@ def highlight(text: Text, settings):
     d.tagdefs['BUILTIN'] = field(settings["syntax"]["BUILTIN"])
     d.tagdefs['STRING'] = field(settings["syntax"]["STRING"])
     d.tagdefs['DEFINITION'] = field(settings["syntax"]["DEFINITION"])
-    Percolator(text).insertfilter(d)
+    p = Percolator(text)
+    p.insertfilter(d)
