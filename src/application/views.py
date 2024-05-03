@@ -35,6 +35,18 @@ class Editor(Tk):
         target.insert(INSERT, (" "*self._settings["editor"]["tab_size"]))
         return "break"
     
+    def _increase_font(self, target: Text) -> str:
+        fontsize = int(target['font'].split()[1])
+        target.config(font=(self._settings["editor"]["font"], fontsize + 1))
+        return "break"
+    
+    def _decrease_font(self, target: Text) -> str:
+        fontsize = int(target['font'].split()[1])
+        if fontsize == 0:
+            return "break"
+        target.config(font=(self._settings["editor"]["font"], fontsize - 1))
+        return "break"
+    
     def save(self, contents: str) -> None:
         debug.log_info("event trigger: save")
         self.unsaved = False
@@ -122,6 +134,8 @@ class Editor(Tk):
         engine.highlight(text, self._settings)
         text.bind("<KeyRelease>", lambda _: self._on_change(text.index(INSERT), status))
         text.bind("<Button 1>", lambda _: self._on_change(text.index(INSERT), status))
+        text.bind("<Control-equal>", lambda _: self._increase_font(text))
+        text.bind("<Control-minus>", lambda _: self._decrease_font(text))
         text.bind("<Tab>", lambda _: self._on_tab(text))
         text.place(relx=0, rely=0, relheight=.95, relwidth=1)
 
