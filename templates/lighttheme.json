@@ -1,0 +1,16 @@
+{
+  "editor": {
+    "font": "Consolas",
+    "font_size": 20,
+    "tab_size": 4,
+    "foreground": "#000000",
+    "background": "#FFFFFF"
+  },
+  "syntax": {
+    "COMMENT": "#6A9955",
+    "KEYWORD": "#0000FF",
+    "BUILTIN": "#267F99",
+    "STRING": "#B51515",
+    "DEFINITION": "#795E26"
+  }
+}

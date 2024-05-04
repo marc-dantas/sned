@@ -88,8 +88,10 @@ class Editor(Tk):
             self, (600, 600), self._settings if self._settings is not None else {}, self.sf)
         debug.log_info("event trigger: window (Settings)")
         window.draw()
+        filter
 
     def draw(self) -> None:
+        self['bg'] = self._settings["editor"]["background"]
         menu = Menu()
         file = Menu(menu, tearoff=False)
         file.add_command(
@@ -130,6 +132,7 @@ class Editor(Tk):
         text = ScrolledText(self, wrap=NONE, font=(self._settings["editor"]["font"],
                                                    self._settings["editor"]["font_size"]),
                             background=self._settings["editor"]["background"],
+                            insertbackground=self._settings["editor"]["foreground"],
                             foreground=self._settings["editor"]["foreground"])
         engine.highlight(text, self._settings)
         text.bind("<KeyRelease>", lambda _: self._on_change(text.index(INSERT), status))
@@ -139,7 +142,10 @@ class Editor(Tk):
         text.bind("<Tab>", lambda _: self._on_tab(text))
         text.place(relx=0, rely=0, relheight=.95, relwidth=1)
 
-        status = Label(self, font=(self._settings["editor"]["font"], 14), text=f"{self.file if self.file else 'new'}")
+        status = Label(self, background=self._settings["editor"]["background"],
+                       foreground=self._settings["editor"]["foreground"],
+                       font=(self._settings["editor"]["font"], 14),
+                       text=f"{self.file if self.file else 'new'}")
         status.place(relx=0, rely=1, relheight=.05, anchor=SW)
 
         self.mainloop()
@@ -168,25 +174,35 @@ class Credits(Toplevel):
         webbrowser.open("https://github.com/Kamaasoo/")
 
     def draw(self) -> None:
-        copy = Label(
-            self, text="Copyright © 2024 Snake Editor - All Rights Reserved", font=("", 20))
+        self['bg'] = self._settings["editor"]["background"]
+        copy = Label(self, text="Copyright © 2024 Snake Editor - All Rights Reserved",
+                     font=("", 20), background=self._settings["editor"]["background"],
+                     foreground=self._settings["editor"]["foreground"])
         copy.place(relx=.5, rely=.1, anchor="center")
-        author = Label(
-            self, text="Developed and Designed by @marc-dantas and @Kamaasoo", font=("", 14))
+        author = Label(self, text="Developed and Designed by @marc-dantas and @Kamaasoo",
+                       font=("", 14), background=self._settings["editor"]["background"],
+                       foreground=self._settings["editor"]["foreground"])
         author.place(relx=.5, rely=.2, anchor="center")
-        license = Label(
-            self, text="This piece of software is fully open-source and licensed under the MIT License.", font=("", 12))
+        license = Label(self, text="This piece of software is fully open-source and licensed under the MIT License.",
+                        font=("", 12), background=self._settings["editor"]["background"],
+                       foreground=self._settings["editor"]["foreground"])
         license.place(relx=.5, rely=.3, anchor="center")
 
         marcdantas = Button(self, text="@marc-dantas",
-                            font=("", 14), command=self.open_marcdantas)
+                            font=("", 14), command=self.open_marcdantas,
+                            relief=FLAT, background=self._settings["editor"]["background"],
+                            foreground=self._settings["editor"]["foreground"])
         marcdantas.place(relx=.4, rely=.45, anchor="center")
         kmsz = Button(self, text="@Kamaasoo",
-                      font=("", 14), command=self.open_kamaasoo)
+                      font=("", 14), command=self.open_kamaasoo,
+                      relief=FLAT, background=self._settings["editor"]["background"],
+                      foreground=self._settings["editor"]["foreground"])
         kmsz.place(relx=.6, rely=.45, anchor="center")
 
         contrib = Button(self, text="Snake Editor on Github",
-                         font=("", 14), command=self.open_repository)
+                         font=("", 14), command=self.open_repository,
+                         relief=FLAT, background=self._settings["editor"]["background"],
+                         foreground=self._settings["editor"]["foreground"])
         contrib.place(relx=.5, rely=.9, anchor="center")
 
         self.mainloop()
@@ -210,13 +226,19 @@ class Settings(Toplevel):
             "To see the configuration changes, please restart Snake Editor")
 
     def draw(self) -> None:
-        text = ScrolledText(self, font=(
-            self._settings["editor"]["font"], self._settings["editor"]["font_size"]))
+        self['bg'] = self._settings["editor"]["background"]
+        text = ScrolledText(self, font=(self._settings["editor"]["font"],
+                                        self._settings["editor"]["font_size"]),
+                            background=self._settings["editor"]["background"],
+                            insertbackground=self._settings["editor"]["foreground"],
+                            foreground=self._settings["editor"]["foreground"])
         text.insert(END, engine.json.dumps(self._settings, indent=2))
 
         text.place(relx=0, rely=0, relwidth=1, relheight=.9)
 
         apply = Button(self, text="Apply",
-                       command=lambda: self.apply(text.get("1.0", END)))
+                       command=lambda: self.apply(text.get("1.0", END)),
+                       relief=FLAT, background=self._settings["editor"]["background"],
+                       foreground=self._settings["editor"]["foreground"])
         apply.place(relx=.0, rely=.9, relheight=.1, relwidth=1)
         self.mainloop()
