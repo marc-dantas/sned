@@ -8,25 +8,18 @@ The goal of Sned is to be an fan-made alternative to the built-in IDLE with high
 > Sned is also built to be an educational project. Not means to be used in production.
 
 ## Getting things running
-For now, Sned is in its early stages of development and there's no way to use it as an proper Python package. So you need to run it manually by the source code.
 
-To be able to use Sned, you need an instance of the Python interpreter version 3.9 or higher and `pip` installed.
+> **NOTE**: You need an instance of the Python interpreter version 3.9 or higher and `pip` installed.
 
-- 1st step: Clone the source code from the repository.
-    ```console
-    $ git clone https://github.com/marc-dantas/sned/
-    ```
-- 2nd step: Get into the repository's folder.
-    ```console
-    $ cd sned
-    ```
-> **Note**: Sned doesn't use any third-party Python packages or libraries. You just need a full installation of Python's standard library to be able to run Sned. 
-- 3rd step: Run the main script.
-    ```console
-    $ python ./sned
-    ```
+To use it, you need to install Sned via `pip`:
+```console
+$ python -m pip install git+https://github.com/marc-dantas/sned.git#egg=sned
+```
 
-These steps should make you through the process and make you run Sned properly.
+Now you can use it:
+```console
+$ python -m sned
+```
 
 ## Developer Milestones
 
@@ -34,7 +27,7 @@ These steps should make you through the process and make you run Sned properly.
 - [ ] Improved layout
 - [X] Dark mode (see customization section below for more information)
 - [X] Line numbers
-- [ ] Python package
+- [X] Python package
 
 
 ## Tutorial
@@ -62,11 +55,11 @@ Sned was always meant to be a very customizable Python editor. It works with con
 You can specify the configuration file via command line in case you don't want to load `settings.json`. Here's a simple example.
 
 ```console
-$ python sned # This will search for default `settings.json`
+$ python -m sned # This will search for default `settings.json`
 ```
 
 ```console
-$ python sned -s foo.json # This will search for `foo.json`
+$ python -m sned -s foo.json # This will search for `foo.json`
 ```
 
 #### Configuration Format
@@ -114,11 +107,11 @@ In this repository, there's a folder `templates` where you can find two differen
 
 - Light theme (`lighttheme.json`)
   ```console
-  $ python sned -s templates/lighttheme.json
+  $ python -m sned -s templates/lighttheme.json
   ```
 - Dark theme (`darktheme.json`)
   ```console
-  $ python sned -s templates/darktheme.json
+  $ python -m sned -s templates/darktheme.json
   ```
 
 If you do not provide the configuration file, Sned will use the [`settings.json`](./settings.json) file.
