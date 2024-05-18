@@ -68,7 +68,6 @@ class Editor(Tk):
         self.title(f"Sned - {self.file if self.file else 'new'}")
 
     def open(self, target: Text) -> None:
-        print(target.index(INSERT))
         debug.log_info("event trigger: open")
         if self.unsaved and engine.ask_unsaved() == "no":
             return
