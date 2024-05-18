@@ -25,7 +25,13 @@ class Editor(Tk):
         if x == "yes" or not self.unsaved:
             self.destroy()
 
-    def _on_change(self, index: str, target: Label) -> None:
+    def _on_change(self, event, index: str, target: Label, text: Text) -> None:
+        brackets = {'(': ')', '{': '}', '[': ']'}
+        if event.char in brackets:
+            text.insert(INSERT, brackets[event.char])
+            new_pos = [int(i) for i in text.index(INSERT).split('.')]
+            new_pos[1] -= 1
+            text.mark_set(INSERT, ".".join(str(i) for i in new_pos))
         self.title(f"Snake Editor - {self.file if self.file else 'new'}*")
         self.unsaved = True
         line, col = index.split('.')
@@ -135,8 +141,8 @@ class Editor(Tk):
                             insertbackground=self._settings["editor"]["foreground"],
                             foreground=self._settings["editor"]["foreground"])
         engine.highlight(text, self._settings)
-        text.bind("<KeyRelease>", lambda _: self._on_change(text.index(INSERT), status))
-        text.bind("<Button 1>", lambda _: self._on_change(text.index(INSERT), status))
+        text.bind("<KeyRelease>", lambda e: self._on_change(e, text.index(INSERT), status, text))
+        text.bind("<Button 1>", lambda e: self._on_change(e, text.index(INSERT), status, text))
         text.bind("<Control-equal>", lambda _: self._increase_font(text))
         text.bind("<Control-minus>", lambda _: self._decrease_font(text))
         text.bind("<Tab>", lambda _: self._on_tab(text))
