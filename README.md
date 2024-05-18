@@ -11,7 +11,18 @@ The goal of Sned is to be an fan-made alternative to the built-in IDLE with high
 
 > **NOTE**: You need an instance of the Python interpreter version 3.9 or higher and `pip` installed.
 
-To use it, you need to install Sned via `pip`:
+### Installing Dependencies
+If you are a Unix/Linux user, make sure to install the full standard library of Python 3 before using Sned:
+
+- Debian/Ubuntu based systems:
+  ```console  
+  $ sudo apt install libpython3-stdlib
+  ```
+
+> Could not find the equivalents for Arch and Fedora based systems. If you find one of these or both, please make a pull request.
+
+### Using Sned
+To install it now, you need to install Sned via `pip`:
 ```console
 $ python -m pip install git+https://github.com/marc-dantas/sned.git#egg=sned
 ```

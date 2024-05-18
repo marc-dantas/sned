@@ -1,5 +1,4 @@
 from . import debug, engine, views
-from . import DEFAULT_SETTINGS
 from argparse import ArgumentParser, Namespace
 from os.path import exists
 
