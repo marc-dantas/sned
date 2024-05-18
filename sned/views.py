@@ -1,4 +1,4 @@
-from . import engine, debug
+import engine, debug
 import webbrowser
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText
@@ -15,7 +15,7 @@ class Editor(Tk):
         self._settings = settings
         self.sf = sf
         self.unsaved = False
-        self.title(f"Snake Editor - new*")
+        self.title(f"Sned - new*")
         self.protocol("WM_DELETE_WINDOW", self._on_window_close)
 
     def _on_window_close(self) -> None:
@@ -32,7 +32,7 @@ class Editor(Tk):
             new_pos = [int(i) for i in text.index(INSERT).split('.')]
             new_pos[1] -= 1
             text.mark_set(INSERT, ".".join(str(i) for i in new_pos))
-        self.title(f"Snake Editor - {self.file if self.file else 'new'}*")
+        self.title(f"Sned - {self.file if self.file else 'new'}*")
         self.unsaved = True
         line, col = index.split('.')
         target['text'] = f"{self.file if self.file else 'new'}:{line}:{col}"
@@ -65,7 +65,7 @@ class Editor(Tk):
             engine.save_file(path, contents)
         else:
             engine.save_file(self.file, contents)
-        self.title(f"Snake Editor - {self.file if self.file else 'new'}")
+        self.title(f"Sned - {self.file if self.file else 'new'}")
 
     def open(self, target: Text) -> None:
         print(target.index(INSERT))
@@ -82,7 +82,7 @@ class Editor(Tk):
         target.delete("1.0", END)
         target.insert("1.0", f.read())
         self.file = split(path)[1] # tail
-        self.title(f"Snake Editor - {self.file if self.file else 'new'}")
+        self.title(f"Sned - {self.file if self.file else 'new'}")
 
     def credits(self) -> None:
         window = Credits(self, (800, 300), self._settings)
@@ -169,7 +169,7 @@ class Credits(Toplevel):
 
     def open_repository(self) -> None:
         debug.log_info("event trigger: open_repository")
-        webbrowser.open("https://github.com/marc-dantas/snake-editor/")
+        webbrowser.open("https://github.com/marc-dantas/sned/")
 
     def open_marcdantas(self):
         debug.log_info("event trigger: open_marcdantas")
@@ -181,11 +181,11 @@ class Credits(Toplevel):
 
     def draw(self) -> None:
         self['bg'] = self._settings["editor"]["background"]
-        copy = Label(self, text="Copyright © 2024 Snake Editor - All Rights Reserved",
+        copy = Label(self, text="Copyright © 2024 Sned - All Rights Reserved",
                      font=("", 20), background=self._settings["editor"]["background"],
                      foreground=self._settings["editor"]["foreground"])
         copy.place(relx=.5, rely=.1, anchor="center")
-        author = Label(self, text="Developed and Designed by @marc-dantas and @Kamaasoo",
+        author = Label(self, text="Developed and Designed by @marc-dantas",
                        font=("", 14), background=self._settings["editor"]["background"],
                        foreground=self._settings["editor"]["foreground"])
         author.place(relx=.5, rely=.2, anchor="center")
@@ -205,7 +205,7 @@ class Credits(Toplevel):
                       foreground=self._settings["editor"]["foreground"])
         kmsz.place(relx=.6, rely=.45, anchor="center")
 
-        contrib = Button(self, text="Snake Editor on Github",
+        contrib = Button(self, text="Sned on Github",
                          font=("", 14), command=self.open_repository,
                          relief=FLAT, background=self._settings["editor"]["background"],
                          foreground=self._settings["editor"]["foreground"])
@@ -229,7 +229,7 @@ class Settings(Toplevel):
         engine.save_file(self.file, new_settings)
         debug.log_info("configuration file saved")
         engine.message(
-            "To see the configuration changes, please restart Snake Editor")
+            "To see the configuration changes, please restart Sned")
 
     def draw(self) -> None:
         self['bg'] = self._settings["editor"]["background"]

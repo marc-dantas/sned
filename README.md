@@ -1,33 +1,32 @@
-# Snake Editor Alpha
+# Sned Alpha
+Sned (**SN**ake **ED**itor) is a minimalistic Python code editor written 100% in Python programming language.
 
-Snake Editor is a minimalistic Python code editor written 100% in Python programming language.
+> Sned was a very old project (originally named Snake Editor) I've already written al ongside @Kamasoo, but I lost the project files. So I decided to rewrite it.
 
-> Snake Editor was a very old project I've already written alongside @Kamasoo, but I lost the project files. So I decided to rewrite it.
+The goal of Sned is to be an fan-made alternative to the built-in IDLE with high customization capabilities. If you are new in Python or want to contribute this is also a good project for you.
 
-The goal of Snake Editor is to be an fan-made alternative to the built-in IDLE with high customization capabilities. If you are new in Python or want to contribute this is also a good project for you.
-
-> Snake Editor is also built to be an educational project. Not means to be used in production.
+> Sned is also built to be an educational project. Not means to be used in production.
 
 ## Getting things running
-For now, Snake Editor is in its early stages of development and there's no way to use it as an proper Python package. So you need to run it manually by the source code.
+For now, Sned is in its early stages of development and there's no way to use it as an proper Python package. So you need to run it manually by the source code.
 
-To be able to use Snake Editor, you need an instance of the Python interpreter version 3.9 or higher and `pip` installed.
+To be able to use Sned, you need an instance of the Python interpreter version 3.9 or higher and `pip` installed.
 
 - 1st step: Clone the source code from the repository.
     ```console
-    $ git clone https://github.com/marc-dantas/snake_editor/
+    $ git clone https://github.com/marc-dantas/sned/
     ```
 - 2nd step: Get into the repository's folder.
     ```console
-    $ cd snake_editor
+    $ cd sned
     ```
-> **Note**: Snake Editor doesn't use any third-party Python packages or libraries. You just need a full installation of Python's standard library to be able to run Snake Editor. 
+> **Note**: Sned doesn't use any third-party Python packages or libraries. You just need a full installation of Python's standard library to be able to run Sned. 
 - 3rd step: Run the main script.
     ```console
-    $ python src/main.py
+    $ python ./sned
     ```
 
-These steps should make you through the process and make you run Snake Editor properly.
+These steps should make you through the process and make you run Sned properly.
 
 ## Developer Milestones
 
@@ -40,12 +39,12 @@ These steps should make you through the process and make you run Snake Editor pr
 
 ## Tutorial
 ### Usage
-Snake Editor has a very simple command line interface to add some simple functionality to the user.
+Sned has a very simple command line interface to add some simple functionality to the user.
 
 ```
-usage: snake editor [-h] [-r RESOLUTION] [-s SETTINGS]
+usage: sned [-h] [-r RESOLUTION] [-s SETTINGS]
 
-Snake Editor CLI
+Sned CLI
 
 options:
   -h, --help            show this help message and exit
@@ -54,20 +53,20 @@ options:
   -s SETTINGS, --settings SETTINGS
                         changes the settings file path to be read.
 
-Copyright 2023 @marc-dantas @Kamasoo. This software is under MIT License
+Copyright (c) 2024 @marc-dantas. This software is licensed under MIT License.
 ```
 
 ### Configuration
-Snake Editor was always meant to be a very customizable Python editor. It works with configuration files. By default it will search for `settings.json` in the current directory.
+Sned was always meant to be a very customizable Python editor. It works with configuration files. By default it will search for `settings.json` in the current directory.
 
 You can specify the configuration file via command line in case you don't want to load `settings.json`. Here's a simple example.
 
 ```console
-$ python src/main.py # This will search for default `settings.json`
+$ python sned # This will search for default `settings.json`
 ```
 
 ```console
-$ python src/main.py -s foo.json # This will search for `foo.json`
+$ python sned -s foo.json # This will search for `foo.json`
 ```
 
 #### Configuration Format
@@ -115,19 +114,16 @@ In this repository, there's a folder `templates` where you can find two differen
 
 - Light theme (`lighttheme.json`)
   ```console
-  $ python src/main.py -s templates/lighttheme.json
+  $ python sned -s templates/lighttheme.json
   ```
 - Dark theme (`darktheme.json`)
   ```console
-  $ python src/main.py -s templates/darktheme.json
+  $ python sned -s templates/darktheme.json
   ```
 
-If you do not provide the configuration file, Snake Editor will use the [`settings.json`](./settings.json) file.
-
+If you do not provide the configuration file, Sned will use the [`settings.json`](./settings.json) file.
 
 ---
-
-
 
 > By @marc-dantas
 

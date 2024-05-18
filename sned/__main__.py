@@ -1,4 +1,4 @@
-from application import debug, engine, views
+import debug, engine, views
 from argparse import ArgumentParser
 
 DEFAULT_SETTINGS_FILE = "settings.json"
@@ -6,10 +6,10 @@ DEFAULT_RESOLUTION = "600x600"
 
 
 def parse_argv():
-    p = ArgumentParser("snake editor",
-                       description="Snake Editor CLI",
-                       epilog="Copyright 2023 @marc-dantas @Kamasoo. "
-                       "This software is under MIT License")
+    p = ArgumentParser("sned",
+                       description="Sned CLI",
+                       epilog="Copyright (c) 2024 @marc-dantas. "
+                       "This software is licensed under MIT License.")
     p.add_argument("-r", "--resolution",
                    help="changes the window resolution.",
                    default=DEFAULT_RESOLUTION)
@@ -35,4 +35,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
