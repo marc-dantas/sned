@@ -1,11 +1,13 @@
 from . import debug, engine, views
-from argparse import ArgumentParser
+from . import DEFAULT_SETTINGS
+from argparse import ArgumentParser, Namespace
+from os.path import exists
 
 DEFAULT_SETTINGS_FILE = "settings.json"
 DEFAULT_RESOLUTION = "600x600"
 
 
-def parse_argv():
+def parse_argv() -> Namespace:
     p = ArgumentParser("sned",
                        description="Sned CLI",
                        epilog="Copyright (c) 2024 @marc-dantas. "
@@ -23,6 +25,10 @@ def parse_argv():
 
 def main() -> None:
     args = parse_argv()
+    if not exists(args.settings):
+        debug.log_fatal(f"no such configuration file '{args.settings}'")
+        debug.log_fatal(f"to solve the problem, create the file '{args.settings}' in the current directory and restart sned")
+        exit(1)
     settings = engine.load_settings(args.settings)
     res = args.resolution.split('x')
     if (len(res) <= 1) or any(not x.isdigit() for x in res):

@@ -50,12 +50,12 @@ Copyright (c) 2024 @marc-dantas. This software is licensed under MIT License.
 ```
 
 ### Configuration
-Sned was always meant to be a very customizable Python editor. It works with configuration files. By default it will search for `settings.json` in the current directory.
 
-You can specify the configuration file via command line in case you don't want to load `settings.json`. Here's a simple example.
+It works with configuration files. By default, Sned will search for the file `settings.json` in the current directory.
+If you want Sned to load other configuration file, you can use the `-s` (`--settings`) flag via command line: 
 
 ```console
-$ python -m sned # This will search for default `settings.json`
+$ python -m sned # This will search for default `./settings.json`
 ```
 
 ```console
@@ -101,7 +101,8 @@ Here's an example configuration file:
 ```
 
 ### Customization
-In this repository, there's a folder `templates` where you can find two different configuration files with specific color settings. To load them, just use the command line flag `-s` (or `--settings`) to use the themes.
+Sned was always meant to be a very customizable Python editor.
+So, in this repository, there's a folder `templates` where you can find two different configuration files with specific color settings. To load them, just use the command line flag `-s` (`--settings`) to use the themes.
 
 > NOTE: Inside the editor you can customize the theme in the Settings window (shortcut: Ctrl+.)
 
