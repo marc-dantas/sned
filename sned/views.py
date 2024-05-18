@@ -1,4 +1,4 @@
-import engine, debug
+from . import engine, debug
 import webbrowser
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText

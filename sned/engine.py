@@ -1,5 +1,5 @@
 import json
-import debug
+from . import debug
 from idlelib.colorizer import ColorDelegator
 from idlelib.percolator import Percolator
 from tkinter import Text, filedialog, messagebox

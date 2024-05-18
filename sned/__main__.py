@@ -1,4 +1,4 @@
-import debug, engine, views
+from . import debug, engine, views
 from argparse import ArgumentParser
 
 DEFAULT_SETTINGS_FILE = "settings.json"
